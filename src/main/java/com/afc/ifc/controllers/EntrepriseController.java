@@ -87,8 +87,9 @@ public class EntrepriseController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Supprimer une entreprise", description = "Supprime une entreprise")
     @ApiResponse(responseCode = "204", description = "Entreprise supprimée avec succès")
-    public void deleteEntreprise(@PathVariable long id) {
+    public ResponseEntity<Void> deleteEntreprise(@PathVariable long id) {
         entrepriseService.deleteEntreprise(id);
+        return ResponseEntity.noContent().build();
     }
 
     // === ENDPOINTS POUR LES EMPLOYÉS ===
@@ -124,10 +125,11 @@ public class EntrepriseController {
 
     @DeleteMapping("/{id}/employes/{idEmploye}")
     @Operation(summary = "Supprimer un employé", description = "Supprime un employé de l'entreprise")
-    public void deleteEmploye(
+    public ResponseEntity<Void> deleteEmploye(
             @PathVariable long id,
             @PathVariable long idEmploye) {
         entrepriseService.supprimerEmployeEntreprise(id, idEmploye);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/employes/{idEmploye}")

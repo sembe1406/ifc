@@ -128,17 +128,51 @@ public class IfcCalculServiceImpl implements IfcCalculService {
      * Calcule l'indemnité de licenciement selon la Convention Commerce
      */
     private double calculerIndemniteLicenciementConventionCommerce(double salaire, int anciennete) {
-        // TODO: Implémenter selon la réglementation en vigueur
-        // Pour l'instant, retourne 0 car les règles de licenciement peuvent être différentes
-        return 0.0;
+        if (salaire <= 0 || anciennete < 0) {
+            throw new IllegalArgumentException("Le salaire doit être positif et l'ancienneté non négative");
+        }
+        
+        double indemnite = 0;
+        
+        // Convention Commerce: mêmes taux que fin de carrière
+        if (anciennete >= 1 && anciennete <= 5) {
+            indemnite = 0.40 * salaire * anciennete;
+        } else if (anciennete >= 6 && anciennete <= 10) {
+            indemnite = 0.40 * salaire * 5 + 0.45 * salaire * (anciennete - 5);
+        } else if (anciennete >= 11 && anciennete <= 15) {
+            indemnite = (0.40 + 0.45) * salaire * 5 + 0.60 * salaire * (anciennete - 10);
+        } else if (anciennete >= 16 && anciennete <= 20) {
+            indemnite = (0.40 + 0.45 + 0.60) * salaire * 5 + 0.65 * salaire * (anciennete - 15);
+        } else if (anciennete > 20) {
+            indemnite = (0.40 + 0.45 + 0.60 + 0.65) * salaire * 5 + 0.75 * salaire * (anciennete - 20);
+        }
+        
+        return Math.round(indemnite * 100.0) / 100.0;
     }
 
     /**
      * Calcule l'indemnité de licenciement selon le Code du Travail
      */
     private double calculerIndemniteLicenciementCodeTravail(double salaire, int anciennete) {
-        // TODO: Implémenter selon la réglementation en vigueur
-        // Pour l'instant, retourne 0 car les règles de licenciement peuvent être différentes
-        return 0.0;
+        if (salaire <= 0 || anciennete < 0) {
+            throw new IllegalArgumentException("Le salaire doit être positif et l'ancienneté non négative");
+        }
+        
+        double indemnite = 0;
+        
+        // Code du Travail: mêmes taux que fin de carrière
+        if (anciennete >= 1 && anciennete <= 5) {
+            indemnite = 0.25 * salaire * anciennete;
+        } else if (anciennete >= 6 && anciennete <= 10) {
+            indemnite = 0.25 * salaire * 5 + 0.30 * salaire * (anciennete - 5);
+        } else if (anciennete >= 11 && anciennete <= 15) {
+            indemnite = (0.25 + 0.30) * salaire * 5 + 0.40 * salaire * (anciennete - 10);
+        } else if (anciennete >= 16 && anciennete <= 20) {
+            indemnite = (0.25 + 0.30 + 0.40) * salaire * 5 + 0.45 * salaire * (anciennete - 15);
+        } else if (anciennete > 20) {
+            indemnite = (0.25 + 0.30 + 0.40 + 0.45) * salaire * 5 + 0.50 * salaire * (anciennete - 20);
+        }
+        
+        return Math.round(indemnite * 100.0) / 100.0;
     }
 }

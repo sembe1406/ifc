@@ -14,12 +14,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Amstrong
  */
-
+@Service
 public class UtilisateurRessource implements IUtilisateurRessource {
     
     @Autowired

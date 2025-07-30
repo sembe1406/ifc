@@ -1,0 +1,32 @@
+# Configuration spécifique pour le profil de test
+# Base de données H2 en mémoire pour les tests
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  
+  # Configuration JPA pour les tests
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        connection:
+          characterEncoding: utf-8
+          useUnicode: true
+
+# Port aléatoire pour éviter les conflits
+server:
+  port: 0
+
+# Logging minimal pour les tests
+logging:
+  level:
+    com.afc.ifc: WARN
+    org.springframework: WARN
+    org.hibernate: WARN
